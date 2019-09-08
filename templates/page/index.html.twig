@@ -1,0 +1,13 @@
+{# templates/blog/index.html.twig #}
+{% extends 'base.html.twig' %}
+
+{% block title %}My cool blog posts{% endblock %}
+
+{% block body %}
+    <h1> body </h1>
+     {{ include('page/page_details.html.twig', { 'title': 'article' }) }}
+     <a href="{{ path('admin') }}">Home</a>
+<img src="{{ asset('images/logo.png') }}" alt="Symfony!"/>
+
+{% endblock %}
+

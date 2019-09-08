@@ -3,10 +3,10 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ProductRepository")
  */
+
 class Product
 {
     /**
@@ -30,6 +30,18 @@ class Product
      * @ORM\Column(type="string", length=255)
      */
     private $description;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\category", inversedBy="products")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $category;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Category1", inversedBy="products")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $category1;
 
     public function getId(): ?int
     {
@@ -68,6 +80,30 @@ class Product
     public function setDescription(string $description): self
     {
         $this->description = $description;
+
+        return $this;
+    }
+
+    public function getCategory(): ?category
+    {
+        return $this->category;
+    }
+
+    public function setCategory(?category $category): self
+    {
+        $this->category = $category;
+
+        return $this;
+    }
+
+    public function getCategory1(): ?Category1
+    {
+        return $this->category1;
+    }
+
+    public function setCategory1(?Category1 $category1): self
+    {
+        $this->category1 = $category1;
 
         return $this;
     }

@@ -4,9 +4,11 @@ namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
-use App\Entity\Product;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Response;
+use App\Entity\Product;
+use App\Entity\Category;
+use App\Entity\Category1;
 
 class ProductController extends AbstractController
 {
@@ -20,6 +22,39 @@ class ProductController extends AbstractController
         ]);
     }
 
+
+
+    /**
+     * @Route("/create_product_cat", name="createProductWithCat")
+     */
+    public function createProductWithCat()
+    { 
+        $category = new Category();
+        $category->setName('Computer Peripherals');
+        
+        $category1 = new Category1();
+        $category1->setName('Computer Peripherals');
+        
+        $product = new Product();
+        $product->setName('Keyboard');
+        $product->setPrice(19.99);
+        $product->setDescription('Ergonomic and stylish!');
+
+        // relates this product to the category
+        $product->setCategory($category);
+        $product->setCategory1($category1);
+
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->persist($category);
+        $entityManager->persist($category1);
+        $entityManager->persist($product);
+        $entityManager->flush();
+
+        return new Response(
+            'Saved new product with id: '.$product->getId()
+            .' and new category with id: '.$category->getId()
+        );
+    }
     /**
      * @Route("/create_product", name="create_product")
      */
@@ -49,8 +84,16 @@ class ProductController extends AbstractController
 public function show($id)
 {
     $product = $this->getDoctrine()
-        ->getRepository(Product::class)
-        ->find($id);
+    ->getRepository(Product::class)
+    ->find($id);
+
+// ...
+
+    // $categoryName = $product->getCategory()->getName();
+
+    // $product = $this->getDoctrine()
+    //     ->getRepository(Product::class)
+    //     ->find($id);
 
     if (!$product) {
         throw $this->createNotFoundException(
@@ -64,4 +107,24 @@ public function show($id)
     // in the template, print things with {{ product.name }}
     // return $this->render('product/show.html.twig', ['product' => $product]);
 }
+
+
+/**
+ * @Route("/products/", name="product_show_all")
+ */
+public function products()
+{
+    $minPrice = 1;
+
+    $products = $this->getDoctrine()
+    ->getRepository(Product::class)
+    ->findAllGreaterThanPrice($minPrice);
+
+    // return new Response('Check out this great product: '.$products);
+
+    // or render a template
+    // in the template, print things with {{ product.name }}
+    return $this->render('product/show.html.twig', ['products' => $products,'controller_name'=> 'productController']);
+}
+
 }
