@@ -114,6 +114,7 @@ public function show($id)
  */
 public function products()
 {
+    //Git Changes to Product Controller.
     $minPrice = 1;
 
     $products = $this->getDoctrine()
