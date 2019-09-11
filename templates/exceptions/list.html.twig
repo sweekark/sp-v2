@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+
+{% block body %}
+
+<h1>Exceptions</h1>
+<ul>
+    {% for exception in exceptions %}
+        <li>{{ exception.reason|e }}</li>
+    {% endfor %}
+</ul>
+
+{% endblock %}
