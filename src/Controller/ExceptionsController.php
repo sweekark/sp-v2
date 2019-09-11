@@ -73,7 +73,7 @@ class ExceptionsController extends AbstractController
         
         $exceptions = $person->getExceptions();
 
-        return $this->render('exceptions/exceptions_profile.html.twig', ['exceptions' => $exceptions]);
+        return $this->render('exceptions/list.html.twig', ['exceptions' => $exceptions]);
 
     }
 }

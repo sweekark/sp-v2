@@ -73,6 +73,11 @@ class Persons
      */
     private $Bay_Name;
 
+    /**
+     * @ORM\Column(type="object", nullable=true)
+     */
+    private $Photo;
+
     public function __construct()
     {
         $this->exceptions = new ArrayCollection();
@@ -230,6 +235,18 @@ class Persons
     public function setBayName(string $Bay_Name): self
     {
         $this->Bay_Name = $Bay_Name;
+
+        return $this;
+    }
+
+    public function getPhoto()
+    {
+        return $this->Photo;
+    }
+
+    public function setPhoto($Photo): self
+    {
+        $this->Photo = $Photo;
 
         return $this;
     }

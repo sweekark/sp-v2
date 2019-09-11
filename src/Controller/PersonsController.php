@@ -8,6 +8,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -36,12 +37,13 @@ class PersonsController extends AbstractController
 
         $form = $this->createFormBuilder($person)
         ->add('Name', TextType::class)
-        ->add('DOB', DateType::class)
+        ->add('DOB', DateType::class,['years' => range(1900, 2019),])
         ->add('Gender', TextType::class)
         ->add('Phone', TextType::class)
         ->add('EmailID', TextType::class)
         ->add('Marital_Status', TextType::class)
         ->add('Country', TextType::class)
+        ->add('Photo', FileType::class)
         ->add('save', SubmitType::class, ['label' => 'Add Me!'])
         ->getForm();
         
