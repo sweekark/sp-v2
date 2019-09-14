@@ -3,11 +3,75 @@
 
 {% block body %}
 
-<h1>Exceptions</h1>
-<ul>
+{#<h1>Exceptions</h1>
+        <ul>
     {% for exception in exceptions %}
-        <li>{{ exception.reason|e }}</li>
+        <li>{{ dump(exception.status|e) }}</li>
     {% endfor %}
-</ul>
+    </ul>#}
+
+
+{#Guru edit starts#}
+
+<div class="col-xs-12">
+    <div class="box">
+        <div class="box-header">
+            <h3 class="box-title">Exceptions</h3>
+        </div>
+
+        <div class="box-body table-responsive no-padding">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+            
+                        {#{% for value in exceptions %}
+            
+                        <th>{{dump(value)}}</th>
+            
+                        {% endfor %}#}
+            
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr style="font-weight: bold">
+                        <td>Exception ID</td>
+                        <td>Name</td>
+                        <td>Date</td>
+                        <td>Status</td>
+                        <td>Reason</td>
+                    </tr>
+                    {% for exception in exceptions %}
+                    <tr>
+                        <td>{{exception.id}}</td>
+                        <td>{{exception.personid.name}}</td>
+                        <td>{{exception.date}}</td>
+                        <td><span class="label label-primary">{{exception.status}}</span></td>
+                        <td>{{exception.reason}}</td>
+                    </tr>
+                    {% endfor %}
+
+                </tbody>
+            </table>
+        </div>
+
+
+        {#<table>
+    {% for row in exp_array|batch(5, 'No item') %}
+        <tr>
+            {% for column in row %}
+                <td>{{ column }}</td>
+            {% endfor %}
+        </tr>
+    {% endfor %}
+    </table>#}
+
+        {#{% for key, value in exp_array %}  
+    {{key}}  
+    {{value}}  
+
+   {% endfor %}#}
+    </div>
+</div>
+{#Guru edit ends#}
 
 {% endblock %}
